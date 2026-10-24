@@ -21,7 +21,9 @@ App for a Quebec wine importer (private import) to manage suppliers, incoming sh
 
 ## Deploy on Vercel
 
-The app is static, so Vercel needs no build settings.
+Live at **https://wineapp-nu.vercel.app** (Vercel project `wineapp`, production branch `main`). Every push to `main` redeploys automatically.
+
+The app is static, so Vercel needs no build settings. To set it up again from scratch:
 
 1. In Vercel, choose *Add New → Project*, import `george664/wineapp`, keep the framework preset at **Other**, and deploy.
 2. Copy the deployment address (for example `https://wineapp.vercel.app`) into Supabase under *Authentication → URL Configuration → Site URL*.
