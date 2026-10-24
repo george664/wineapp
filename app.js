@@ -191,107 +191,170 @@ function renderView(){
 
 const X='<button class="x" data-act="close" aria-label="'+'CLOSE'+'">×</button>';
 const closeBtn=()=>X.replace('CLOSE',esc(t('close')));
+const topActs=b=>'<div class="dh-acts">'+b+closeBtn()+'</div>';
 const dd=(k,v)=>'<div><dt>'+esc(k)+'</dt><dd>'+v+'</dd></div>';
 const totalsHTML=sub=>'<div class="tot"><span>'+esc(t('sub'))+'</span><span>'+money(sub)+'</span><span>'+esc(t('tps'))+'</span><span>'+money(sub*TPS)+'</span><span>'+esc(t('tvq'))+'</span><span>'+money(sub*TVQ)+'</span><span class="big">'+esc(t('total'))+'</span><span class="big">'+money(sub*(1+TPS+TVQ))+'</span></div>';
 
-function dAcc(a){
-  const ords=orders.filter(o=>o.acc===a.id).sort((x,y)=>y.date-x.date);
+// ---------- Record panels ----------
+// View and edit share one layout: same header, same label grid, same sections.
+// In edit mode the values become inputs; parts that can't be edited stay as they are.
+const head=(titleHtml,subHtml,acts)=>'<div class="dh"><div><h2 id="mt">'+titleHtml+'</h2>'+(subHtml?'<div class="sub">'+subHtml+'</div>':'')+'</div>'+topActs(acts)+'</div>';
+const inp=(id,type,v,extra)=>'<input id="'+id+'" type="'+(type||'text')+'" value="'+esc(v==null?'':v)+'"'+(extra||'')+'>';
+const sl=(id,opts,cur,extra)=>'<select id="'+id+'"'+(extra||'')+'>'+opts.map(([v,l])=>'<option value="'+esc(v)+'"'+(String(v)===String(cur)?' selected':'')+'>'+esc(l)+'</option>').join('')+'</select>';
+const ta=(id,v)=>'<textarea id="'+id+'" rows="3">'+esc(v||'')+'</textarea>';
+const ef=(label,html,id)=>'<div><dt>'+(id?'<label for="'+id+'">'+esc(label)+'</label>':esc(label))+'</dt><dd>'+html+'</dd></div>';
+const sech=(label,id)=>'<h3>'+(id?'<label for="'+id+'">'+esc(label)+'</label>':esc(label))+'</h3>';
+const accSub=a=>esc(t('ty_'+a.type)+' · '+[a.city,a.area].filter(Boolean).join(', '));
+const supSub=s=>esc([s.region,s.country].filter(Boolean).join(', '));
+
+function accTop(a){
   const tally={};live(a).forEach(o=>o.lines.forEach(l=>{tally[l.w]=(tally[l.w]||0)+l.c;}));
-  const top=Object.entries(tally).sort((x,y)=>y[1]-x[1]).slice(0,3);
-  return '<div class="dh"><div><h2>'+esc(a.name)+'</h2><div class="sub">'+esc(t('ty_'+a.type)+' · '+a.city+', '+a.area)+'</div></div>'+closeBtn()+'</div>'
+  const top=Object.entries(tally).filter(([w])=>W(w)).sort((x,y)=>y[1]-x[1]).slice(0,3);
+  return top.length?'<div class="sec"><h3>'+esc(t('top'))+'</h3><div class="panel">'+top.map(([w,c])=>'<div class="row" style="cursor:default;grid-template-columns:minmax(0,1fr) auto"><span class="t">'+wdot(W(w))+esc(wlabel(W(w)))+'</span><span class="r">'+c+' '+esc(t('cases'))+'</span></div>').join('')+'</div></div>':'';
+}
+function accHist(a,clickable){
+  const ords=orders.filter(o=>o.acc===a.id).sort((x,y)=>y.date-x.date);
+  const row=o=>clickable?'<button class="row" data-act="open-ord" data-id="'+o.id+'">':'<div class="row" style="cursor:default">';
+  return '<div class="sec"><h3>'+esc(t('hist'))+'</h3>'+(ords.length?'<div class="panel">'+ords.map(o=>row(o)+'<span class="mono">'+esc(o.id)+'</span><span>'+ordPill(o.status)+' <span class="sub">'+esc(fmtD(o.date))+'</span></span><span class="r">'+money(oTotal(o))+'</span>'+(clickable?'</button>':'</div>')).join('')+'</div>':'<div class="sub">'+esc(t('never'))+'</div>')+'</div>';
+}
+function dAcc(a){
+  return head(esc(a.name),accSub(a),btnDel('acc',a.id)+btnEdit('acc',a.id)+'<button class="btn primary" data-act="new-ord" data-id="'+a.id+'">'+esc(t('new_ord'))+'</button>')
    +'<div class="pills">'+stPill(accStatus(a))+permitPill(a)+'</div>'
    +'<dl class="dl">'+dd(t('contact'),esc(a.contact)+'<br><span class="sub">'+esc(a.email)+'</span>')+dd(t('permit_no'),'<span class="mono">'+esc(a.pno||'—')+'</span>')+dd(t('terms'),esc(t('tm_'+a.terms)))+dd(t('c_vol'),vol12(a)?money(vol12(a)):'—')+'</dl>'
-   +'<div class="sec"><h3>'+esc(t('dnote'))+'</h3><div>'+esc(L(a.note))+'</div><div class="sub">'+esc(t('since',{y:a.since}))+'</div></div>'
-   +(top.length?'<div class="sec"><h3>'+esc(t('top'))+'</h3><div class="panel">'+top.map(([w,c])=>'<div class="row" style="cursor:default;grid-template-columns:minmax(0,1fr) auto"><span class="t">'+wdot(W(w))+esc(wlabel(W(w)))+'</span><span class="r">'+c+' '+esc(t('cases'))+'</span></div>').join('')+'</div></div>':'')
-   +'<div class="sec"><h3>'+esc(t('hist'))+'</h3>'+(ords.length?'<div class="panel">'+ords.map(o=>'<button class="row" data-act="open-ord" data-id="'+o.id+'"><span class="mono">'+esc(o.id)+'</span><span>'+ordPill(o.status)+' <span class="sub">'+esc(fmtD(o.date))+'</span></span><span class="r">'+money(oTotal(o))+'</span></button>').join('')+'</div>':'<div class="sub">'+esc(t('never'))+'</div>')+'</div>'
-   +'<div class="acts"><span class="acts-left">'+btnDel('acc',a.id)+'</span>'+btnEdit('acc',a.id)+'<button class="btn primary" data-act="new-ord" data-id="'+a.id+'">'+esc(t('new_ord'))+'</button></div>';
+   +'<div class="sec"><h3>'+esc(t('dnote'))+'</h3><div>'+esc(L(a.note||''))+'</div><div class="sub">'+esc(t('since',{y:a.since}))+'</div></div>'
+   +accTop(a)+accHist(a,true);
+}
+function eAcc(m){
+  const ed=!!m.id,r=ed?A(m.id):{type:'resto',terms:'net30'};
+  return head(esc(ed?r.name:t('new_acc')),ed?accSub(r):'',btnSave())
+   +(ed?'<div class="pills">'+stPill(accStatus(r))+permitPill(r)+'</div>':'')
+   +'<dl class="dl">'+ef(t('f_name'),inp('fa-name','text',r.name),'fa-name')+ef(t('f_type'),sl('fa-type',['resto','epicerie','caviste','hotel'].map(x=>[x,t('ty_'+x)]),r.type),'fa-type')+ef(t('f_city'),inp('fa-city','text',r.city),'fa-city')+ef(t('f_area'),inp('fa-area','text',r.area),'fa-area')+'</dl>'
+   +'<dl class="dl">'+ef(t('contact'),inp('fa-contact','text',r.contact),'fa-contact')+ef(t('f_email'),inp('fa-email','email',r.email),'fa-email')+ef(t('permit_no'),inp('fa-pno','text',r.pno),'fa-pno')+ef(t('f_pexp'),inp('fa-pexp','date',r.pexp?iso(r.pexp):''),'fa-pexp')+ef(t('terms'),sl('fa-terms',['net30','net15','cod'].map(x=>[x,t('tm_'+x)]),r.terms),'fa-terms')+(ed?ef(t('c_vol'),vol12(r)?money(vol12(r)):'—'):'')+'</dl>'
+   +'<div class="sec">'+sech(t('dnote'),'fa-note')+ta('fa-note',r.note?L(r.note):'')+(ed?'<div class="sub">'+esc(t('since',{y:r.since}))+'</div>':'')+'</div>'
+   +(ed?accTop(r)+accHist(r,false):'');
 }
 
+function supWines(s,act){
+  const ws=wines.filter(w=>w.sup===s.id);
+  const hd='<div class="shead"><h3>'+esc(t('wines'))+'</h3>'+(act?'<button class="btn sm" data-act="new" data-kind="wine" data-sup="'+esc(s.id)+'">+ '+esc(t('new_wine'))+'</button>':'')+'</div>';
+  return '<div class="sec">'+hd+(ws.length?'<div class="panel tw"><table><thead><tr><th>'+esc(t('wine'))+'</th><th class="num">'+esc(t('stock'))+'</th><th class="num">'+esc(t('transit'))+'</th><th class="num">'+esc(t('margin'))+'</th></tr></thead><tbody>'
+   +ws.map(w=>'<tr'+(act?' class="click" tabindex="0" data-act="edit" data-kind="wine" data-id="'+esc(w.id)+'" title="'+esc(t('edit'))+'"':'')+'><td>'+wdot(w)+esc(wlabel(w))+'<div class="sub">'+esc(t('co_'+w.color))+' · '+w.cs+' '+esc(t('btl'))+'</div></td><td class="num">'+(w.stock===0?pill('bad','0'):w.stock)+'</td><td class="num">'+(w.transit||'—')+'</td><td class="num">'+(w.price?Math.round((w.price-w.cost)/w.price*100)+' %':'—')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="sub">'+esc(t('none'))+'</div>')+'</div>';
+}
+function supShips(s,act){
+  const sh=shipments.filter(x=>x.sup===s.id).sort((a,b)=>(b.eta||0)-(a.eta||0));
+  const hd='<div class="shead"><h3>'+esc(t('ships'))+'</h3>'+(act?'<button class="btn sm" data-act="new" data-kind="ship" data-sup="'+esc(s.id)+'">+ '+esc(t('new_ship'))+'</button>':'')+'</div>';
+  const inner=x=>'<span>'+shPill(x.status)+'</span><span class="mono">'+esc(x.ref||'—')+' · '+x.cases+' '+esc(t('cases'))+'</span><span class="r">'+(x.eta?esc(fmtD(x.eta)):'—')+'</span>';
+  return '<div class="sec">'+hd+(sh.length?'<div class="panel">'+sh.map(x=>act?'<button class="row" data-act="edit" data-kind="ship" data-id="'+esc(x.id)+'" title="'+esc(t('edit'))+'">'+inner(x)+'</button>':'<div class="row" style="cursor:default">'+inner(x)+'</div>').join('')+'</div>':'<div class="sub">'+esc(t('none'))+'</div>')+'</div>';
+}
 function dSup(s){
-  const ws=wines.filter(w=>w.sup===s.id),sh=shipments.filter(x=>x.sup===s.id).sort((a,b)=>(b.eta||0)-(a.eta||0));
-  const shead=(title,kind,label)=>'<div class="shead"><h3>'+esc(title)+'</h3><button class="btn sm" data-act="new" data-kind="'+kind+'" data-sup="'+esc(s.id)+'">+ '+esc(label)+'</button></div>';
-  return '<div class="dh"><div><h2>'+esc(s.name)+'</h2><div class="sub">'+esc([s.region,s.country].filter(Boolean).join(', '))+'</div></div>'+closeBtn()+'</div>'
+  return head(esc(s.name),supSub(s),btnDel('sup',s.id)+btnEdit('sup',s.id))
    +'<dl class="dl">'+dd(t('contact'),esc(s.contact)+'<br><span class="sub">'+esc(s.email)+'</span>')+dd(t('c_terms'),esc(s.terms))+dd(t('c_lead'),esc(t('wk',{n:s.lead})))+'</dl>'
    +'<div class="sec"><h3>'+esc(t('notes'))+'</h3><div>'+esc(L(s.note||''))+'</div></div>'
-   +'<div class="sec">'+shead(t('wines'),'wine',t('new_wine'))+(ws.length?'<div class="panel tw"><table><thead><tr><th>'+esc(t('wine'))+'</th><th class="num">'+esc(t('stock'))+'</th><th class="num">'+esc(t('transit'))+'</th><th class="num">'+esc(t('margin'))+'</th></tr></thead><tbody>'
-   +ws.map(w=>'<tr class="click" tabindex="0" data-act="edit" data-kind="wine" data-id="'+esc(w.id)+'" title="'+esc(t('edit'))+'"><td>'+wdot(w)+esc(wlabel(w))+'<div class="sub">'+esc(t('co_'+w.color))+' · '+w.cs+' '+esc(t('btl'))+'</div></td><td class="num">'+(w.stock===0?pill('bad','0'):w.stock)+'</td><td class="num">'+(w.transit||'—')+'</td><td class="num">'+(w.price?Math.round((w.price-w.cost)/w.price*100)+' %':'—')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="sub">'+esc(t('none'))+'</div>')+'</div>'
-   +'<div class="sec">'+shead(t('ships'),'ship',t('new_ship'))+(sh.length?'<div class="panel">'+sh.map(x=>'<button class="row" data-act="edit" data-kind="ship" data-id="'+esc(x.id)+'" title="'+esc(t('edit'))+'"><span>'+shPill(x.status)+'</span><span class="mono">'+esc(x.ref||'—')+' · '+x.cases+' '+esc(t('cases'))+'</span><span class="r">'+(x.eta?esc(fmtD(x.eta)):'—')+'</span></button>').join('')+'</div>':'<div class="sub">'+esc(t('none'))+'</div>')+'</div>'
-   +'<div class="acts"><span class="acts-left">'+btnDel('sup',s.id)+'</span>'+btnEdit('sup',s.id)+'</div>';
+   +supWines(s,true)+supShips(s,true);
 }
+function eSup(m){
+  const ed=!!m.id,r=ed?S(m.id):{lead:6,terms:'Net 30, EUR'};
+  return head(esc(ed?r.name:t('new_sup')),ed?supSub(r):'',btnSave())
+   +'<dl class="dl">'+ef(t('f_name'),inp('fs-name','text',r.name),'fs-name')+ef(t('f_region'),inp('fs-region','text',r.region),'fs-region')+ef(t('f_country'),inp('fs-country','text',r.country),'fs-country')+'</dl>'
+   +'<dl class="dl">'+ef(t('contact'),inp('fs-contact','text',r.contact),'fs-contact')+ef(t('f_email'),inp('fs-email','email',r.email),'fs-email')+ef(t('c_terms'),inp('fs-terms','text',r.terms),'fs-terms')+ef(t('f_lead'),inp('fs-lead','number',r.lead,' min="0" step="1"'),'fs-lead')+'</dl>'
+   +'<div class="sec">'+sech(t('notes'),'fs-note')+ta('fs-note',r.note?L(r.note):'')+'</div>'
+   +(ed?supWines(r,false)+supShips(r,false):'');
+}
+
+// Wines and shipments have no panel of their own; their edit page uses the same label grid.
+function eWine(m){
+  const ed=!!m.id,r=ed?W(m.id):{sup:m.sup,vint:base.getFullYear()-2,color:'red',cs:6,stock:0,transit:0};
+  return head(ed?wdot(r)+esc(wlabel(r)):esc(t('new_wine')),esc((S(r.sup)||{}).name||''),(ed?btnDel('wine',m.id):'')+btnSave())
+   +'<dl class="dl">'+ef(t('f_wname'),inp('fw-name','text',r.name),'fw-name')+ef(t('f_sup'),sl('fw-sup',supOpts(),r.sup),'fw-sup')+ef(t('f_vint'),inp('fw-vint','number',r.vint,' min="0" step="1"'),'fw-vint')+ef(t('f_color'),sl('fw-color',['red','white','rose','fortified'].map(x=>[x,t('co_'+x)]),r.color),'fw-color')+'</dl>'
+   +'<dl class="dl">'+ef(t('f_cs'),inp('fw-cs','number',r.cs,' min="1" step="1"'),'fw-cs')+ef(t('f_cost'),inp('fw-cost','number',r.cost,' min="0" step="0.01"'),'fw-cost')+ef(t('f_price'),inp('fw-price','number',r.price,' min="0" step="0.01"'),'fw-price')+(ed?ef(t('margin'),r.price?Math.round((r.price-r.cost)/r.price*100)+' %':'—'):'')+'</dl>'
+   +'<dl class="dl">'+ef(t('f_stock'),inp('fw-stock','number',r.stock,' min="0" step="1"'),'fw-stock')+ef(t('f_transit'),inp('fw-transit','number',r.transit,' min="0" step="1"'),'fw-transit')+'</dl>';
+}
+function eShip(m){
+  const ed=!!m.id,r=ed?SH(m.id):{sup:m.sup,status:'production',eta:off(42),cases:0};
+  return head(ed?'<span class="mono" style="font-family:var(--font-mono);font-size:18px">'+esc(r.ref||'—')+'</span>':esc(t('new_ship')),esc((S(r.sup)||{}).name||''),(ed?btnDel('ship',m.id):'')+btnSave())
+   +(ed?'<div class="pills">'+shPill(r.status)+'</div>':'')
+   +'<dl class="dl">'+ef(t('f_ref'),inp('fh-ref','text',r.ref),'fh-ref')+ef(t('f_sup'),sl('fh-sup',supOpts(),r.sup),'fh-sup')+ef(t('f_cases'),inp('fh-cases','number',r.cases,' min="0" step="1"'),'fh-cases')+ef(t('f_status'),sl('fh-status',['production','sea','customs','received'].map(x=>[x,t('sh_'+x)]),r.status),'fh-status')+ef(t('f_eta'),inp('fh-eta','date',r.eta?iso(r.eta):''),'fh-eta')+'</dl>';
+}
+function mForm(m){return ({acc:eAcc,sup:eSup,wine:eWine,ship:eShip})[m.kind](m);}
 
 function dOrd(o){
   const a=A(o.acc),sub=oSub(o),nxt={draft:'confirmed',confirmed:'delivered',delivered:'paid'}[o.status];
   const blocked=nxt==='confirmed'&&permitState(a).k==='expired';
-  return '<div class="dh"><div><h2><span class="mono" style="font-family:var(--font-mono);font-size:18px">'+esc(o.id)+'</span></h2><button class="row" style="padding:2px 0;border:0;display:block;width:auto" data-act="open-acc" data-id="'+a.id+'"><span class="t" style="color:var(--accent-text);text-decoration:underline">'+esc(a.name)+'</span></button></div>'+closeBtn()+'</div>'
+  return head('<span class="mono" style="font-family:var(--font-mono);font-size:18px">'+esc(o.id)+'</span>','<button class="row lnk-acc" data-act="open-acc" data-id="'+a.id+'"><span class="t">'+esc(a.name)+'</span></button>',
+     btnDel('ord',o.id)+btnEdit('ord',o.id)+(nxt?'<button class="btn primary" data-act="advance" data-id="'+o.id+'" '+(blocked?'disabled':'')+'>'+esc(t('adv_'+nxt))+'</button>':''))
    +'<div class="pills">'+ordPill(o.status)+(isOverdue(o)?pill('bad',t('due',{date:fmtD(dueDate(o))})):'')+'</div>'
-   +'<dl class="dl">'+dd(t('c_placed'),esc(fmtD(o.date,{day:'numeric',month:'long',year:'numeric'})))+dd(t('c_deliv'),esc(fmtD(o.deliver,{day:'numeric',month:'long',year:'numeric'})))+dd(t('terms'),esc(t('tm_'+a.terms)))+dd(t('gm'),money(sub-oCost(o))+' <span class="sub">('+Math.round((sub-oCost(o))/sub*100)+' %)</span>')+'</dl>'
+   +'<dl class="dl">'+dd(t('c_placed'),esc(fmtD(o.date,{day:'numeric',month:'long',year:'numeric'})))+dd(t('c_deliv'),esc(fmtD(o.deliver,{day:'numeric',month:'long',year:'numeric'})))+dd(t('terms'),esc(t('tm_'+a.terms)))+dd(t('gm'),money(sub-oCost(o))+' <span class="sub">('+(sub?Math.round((sub-oCost(o))/sub*100):0)+' %)</span>')+'</dl>'
    +'<div class="panel tw"><table><thead><tr><th>'+esc(t('wine'))+'</th><th class="num">'+esc(t('qty'))+'</th><th class="num">'+esc(t('unit'))+'</th><th class="num">'+esc(t('amt'))+'</th></tr></thead><tbody>'
    +o.lines.map(l=>{const w=W(l.w);return '<tr><td>'+wdot(w)+esc(wlabel(w))+'<div class="sub">'+units(l)+' '+esc(t('btl'))+'</div></td><td class="num">'+l.c+'</td><td class="num">'+money(w.price)+'</td><td class="num">'+money(units(l)*w.price)+'</td></tr>';}).join('')+'</tbody></table></div>'
    +totalsHTML(sub)
-   +(blocked?'<div class="note">'+esc(t('permit_block'))+'</div>':'')
-   +'<div class="acts"><span class="acts-left">'+btnDel('ord',o.id)+'</span>'+btnEdit('ord',o.id)+(nxt?'<button class="btn primary" data-act="advance" data-id="'+o.id+'" '+(blocked?'disabled':'')+'>'+esc(t('adv_'+nxt))+'</button>':'')+'</div>';
+   +(blocked?'<div class="note">'+esc(t('permit_block'))+'</div>':'');
 }
 
-function renderLayer(){
-  const d=ui.drawer,m=ui.modal;let h='';
-  if(d&&!({acc:A,sup:S,ord:O}[d.t](d.id)))ui.drawer=null;
-  if(ui.drawer){const body=d.t==='acc'?dAcc(A(d.id)):d.t==='sup'?dSup(S(d.id)):dOrd(O(d.id));
-    h+='<div class="scrim" data-act="close-bg"></div><aside class="drawer" role="dialog" aria-modal="true">'+body+'</aside>';}
-  if(m)h+=m.t==='order'?mOrder(m):m.t==='del'?mDel(m):mForm(m);
-  $('#layer').innerHTML=h;
-  document.body.style.overflow=(ui.drawer||m)?'hidden':'';
-  if(m&&m.t==='order')updateOrder();
-}
-
-const fld=(id,label,type,val,extra)=>'<div class="fld"><label for="'+id+'">'+esc(label)+'</label><input id="'+id+'" type="'+(type||'text')+'" value="'+esc(val==null?'':val)+'"'+(extra||'')+'></div>';
-const sel=(id,label,opts,cur)=>'<div class="fld"><label for="'+id+'">'+esc(label)+'</label><select id="'+id+'">'+opts.map(([v,l])=>'<option value="'+esc(v)+'"'+(String(v)===String(cur)?' selected':'')+'>'+esc(l)+'</option>').join('')+'</select></div>';
-const area=(id,label,val)=>'<div class="fld" style="grid-column:1/-1"><label for="'+id+'">'+esc(label)+'</label><textarea id="'+id+'" rows="3">'+esc(val||'')+'</textarea></div>';
-const modalWrap=(title,body,acts,left)=>'<div class="modal" data-act="close-bg"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="dh"><h2 id="mt">'+esc(title)+'</h2>'+closeBtn()+'</div>'+body+'<div class="acts">'+(left?'<span class="acts-left">'+left+'</span>':'')+acts+'</div></div></div>';
-const btnSave=()=>'<button class="btn" data-act="close">'+esc(t('cancel'))+'</button><button class="btn primary" data-act="save-form">'+esc(t('save'))+'</button>';
-const btnDel=(kind,id)=>'<button class="btn danger" data-act="ask-del" data-kind="'+kind+'" data-id="'+esc(id)+'">'+esc(t('delete'))+'</button>';
-const btnEdit=(kind,id)=>'<button class="btn" data-act="edit" data-kind="'+kind+'" data-id="'+esc(id)+'">'+esc(t('edit'))+'</button>';
-const supOpts=()=>suppliers.map(s=>[s.id,s.name]);
-const SH=id=>shipments.find(x=>x.id===id);
-
-// Create / edit form for accounts, suppliers, wines and shipments.
-function mForm(m){
-  const k=m.kind,ed=!!m.id;
-  if(k==='acc'){const r=ed?A(m.id):{type:'resto',terms:'net30'};
-    return modalWrap(t(ed?'e_acc':'new_acc'),'<div class="g2">'+fld('fa-name',t('f_name'),'text',r.name)+sel('fa-type',t('f_type'),['resto','epicerie','caviste','hotel'].map(x=>[x,t('ty_'+x)]),r.type)+fld('fa-city',t('f_city'),'text',r.city)+fld('fa-area',t('f_area'),'text',r.area)+fld('fa-contact',t('f_contact'),'text',r.contact)+fld('fa-email',t('f_email'),'email',r.email)+fld('fa-pno',t('f_pno'),'text',r.pno)+fld('fa-pexp',t('f_pexp'),'date',r.pexp?iso(r.pexp):'')+sel('fa-terms',t('f_terms'),['net30','net15','cod'].map(x=>[x,t('tm_'+x)]),r.terms)+area('fa-note',t('dnote'),r.note?L(r.note):'')+'</div>',btnSave());}
-  if(k==='sup'){const r=ed?S(m.id):{lead:6,terms:'Net 30, EUR'};
-    return modalWrap(t(ed?'e_sup':'new_sup'),'<div class="g2">'+fld('fs-name',t('f_name'),'text',r.name)+fld('fs-country',t('f_country'),'text',r.country)+fld('fs-region',t('f_region'),'text',r.region)+fld('fs-contact',t('f_contact'),'text',r.contact)+fld('fs-email',t('f_email'),'email',r.email)+fld('fs-lead',t('f_lead'),'number',r.lead,' min="0" step="1"')+fld('fs-terms',t('f_pay'),'text',r.terms)+area('fs-note',t('notes'),r.note?L(r.note):'')+'</div>',btnSave());}
-  if(k==='wine'){const r=ed?W(m.id):{sup:m.sup,vint:base.getFullYear()-2,color:'red',cs:6,stock:0,transit:0};
-    return modalWrap(t(ed?'e_wine':'new_wine'),'<div class="g2">'+fld('fw-name',t('f_wname'),'text',r.name)+sel('fw-sup',t('f_sup'),supOpts(),r.sup)+fld('fw-vint',t('f_vint'),'number',r.vint,' min="0" step="1"')+sel('fw-color',t('f_color'),['red','white','rose','fortified'].map(x=>[x,t('co_'+x)]),r.color)+fld('fw-cs',t('f_cs'),'number',r.cs,' min="1" step="1"')+fld('fw-cost',t('f_cost'),'number',r.cost,' min="0" step="0.01"')+fld('fw-price',t('f_price'),'number',r.price,' min="0" step="0.01"')+fld('fw-stock',t('f_stock'),'number',r.stock,' min="0" step="1"')+fld('fw-transit',t('f_transit'),'number',r.transit,' min="0" step="1"')+'</div>',btnSave(),ed?btnDel('wine',m.id):'');}
-  const r=ed?SH(m.id):{sup:m.sup,status:'production',eta:off(42),cases:0};
-  return modalWrap(t(ed?'e_ship':'new_ship'),'<div class="g2">'+sel('fh-sup',t('f_sup'),supOpts(),r.sup)+fld('fh-ref',t('f_ref'),'text',r.ref)+fld('fh-cases',t('f_cases'),'number',r.cases,' min="0" step="1"')+sel('fh-status',t('f_status'),['production','sea','customs','received'].map(x=>[x,t('sh_'+x)]),r.status)+fld('fh-eta',t('f_eta'),'date',r.eta?iso(r.eta):'')+'</div>',btnSave(),ed?btnDel('ship',m.id):'');
-}
-
-const wineOpts=s=>suppliers.map(sp=>'<optgroup label="'+esc(sp.name)+'">'+wines.filter(w=>w.sup===sp.id).map(w=>'<option value="'+w.id+'"'+(w.id===s?' selected':'')+'>'+esc(wlabel(w)+', '+money(w.price))+'</option>').join('')+'</optgroup>').join('');
-// New order, or edit an existing one. Wines and quantities are locked once an order is confirmed,
-// because stock has already been deducted for them.
+const wineOpts=s=>suppliers.map(sp=>'<optgroup label="'+esc(sp.name)+'">'+wines.filter(w=>w.sup===sp.id).map(w=>'<option value="'+w.id+'"'+(w.id===s?' selected':'')+'>'+esc(wlabel(w))+'</option>').join('')+'</optgroup>').join('');
+// New order or edit order, laid out like the order panel. Wines and quantities are locked once
+// an order is confirmed, because stock has already been deducted for them.
 function mOrder(m){
-  const ed=!!m.id,locked=ed&&m.status!=='draft',dis=locked?' disabled':'';
+  const ed=!!m.id,o=ed?O(m.id):null,locked=ed&&m.status!=='draft',dis=locked?' disabled':'';
   const accs=accounts.slice().sort((a,b)=>a.name.localeCompare(b.name));
-  const lines=m.lines.map((l,i)=>'<div class="oline"><select id="ow-'+i+'" data-f="wine" data-i="'+i+'" aria-label="'+esc(t('wine'))+'"'+dis+'><option value="">'+esc(t('pickw'))+'</option>'+wineOpts(l.w)+'</select><input id="oq-'+i+'" type="number" min="1" step="1" value="'+l.c+'" data-f="qty" data-i="'+i+'" aria-label="'+esc(t('qty'))+'"'+dis+'><div class="lt" id="lt-'+i+'"></div>'+(locked?'<span></span>':'<button class="x" data-act="rm-line" data-i="'+i+'" aria-label="'+esc(t('rm'))+'">×</button>')+'</div><div class="lw" id="lw-'+i+'"></div>').join('');
-  const body='<div class="g2"><div class="fld"><label for="oa">'+esc(t('acc'))+'</label><select id="oa" data-f="acc"'+dis+'><option value="">'+esc(t('pick'))+'</option>'+accs.map(a=>'<option value="'+a.id+'"'+(a.id===m.acc?' selected':'')+'>'+esc(a.name+' · '+a.city)+'</option>').join('')+'</select></div><div class="fld"><label for="od">'+esc(t('dl'))+'</label><input id="od" type="date" data-f="deliver" value="'+esc(m.deliver)+'"></div></div>'
-   +'<div id="o-note"></div>'+(locked?'<div class="sub">'+esc(t('lines_locked'))+'</div>':'')+'<div class="sec">'+lines+(locked?'':'<div><button class="btn" data-act="add-line">+ '+esc(t('add_line'))+'</button></div>')+'</div><div id="o-tot"></div>';
-  if(ed)return modalWrap(t('e_ord',{id:m.id}),body,'<button class="btn" data-act="close">'+esc(t('cancel'))+'</button><button class="btn primary" id="o-save" data-act="save-order" data-id="edit">'+esc(t('save'))+'</button>');
-  return modalWrap(t('new_ord'),body,'<button class="btn" data-act="close">'+esc(t('cancel'))+'</button><button class="btn" id="o-draft" data-act="save-order" data-id="draft">'+esc(t('save_draft'))+'</button><button class="btn primary" id="o-conf" data-act="save-order" data-id="confirmed">'+esc(t('adv_confirmed'))+'</button>');
+  const acts=ed?btnSave().replace('data-act="save-form"','id="o-save" data-act="save-order" data-id="edit"')
+    :'<button class="btn" data-act="close">'+esc(t('cancel'))+'</button><button class="btn" id="o-draft" data-act="save-order" data-id="draft">'+esc(t('save_draft'))+'</button><button class="btn primary" id="o-conf" data-act="save-order" data-id="confirmed">'+esc(t('adv_confirmed'))+'</button>';
+  const rows=m.lines.map((l,i)=>'<tr><td><select id="ow-'+i+'" data-f="wine" data-i="'+i+'" aria-label="'+esc(t('wine'))+'"'+dis+'><option value="">'+esc(t('pickw'))+'</option>'+wineOpts(l.w)+'</select><div class="sub" id="lw-'+i+'"></div></td>'
+    +'<td class="num"><input class="qty" id="oq-'+i+'" type="number" min="1" step="1" value="'+l.c+'" data-f="qty" data-i="'+i+'" aria-label="'+esc(t('qty'))+'"'+dis+'></td>'
+    +'<td class="num" id="lp-'+i+'">—</td><td class="num" id="lt-'+i+'">—</td>'
+    +'<td class="rm">'+(locked?'':'<button class="x" data-act="rm-line" data-i="'+i+'" aria-label="'+esc(t('rm'))+'">×</button>')+'</td></tr>').join('');
+  return head(ed?'<span class="mono" style="font-family:var(--font-mono);font-size:18px">'+esc(m.id)+'</span>':esc(t('new_ord')),'',acts)
+   +(ed?'<div class="pills">'+ordPill(o.status)+'</div>':'')
+   +'<dl class="dl">'+ef(t('acc'),'<select id="oa" data-f="acc"'+dis+'><option value="">'+esc(t('pick'))+'</option>'+accs.map(a=>'<option value="'+a.id+'"'+(a.id===m.acc?' selected':'')+'>'+esc(a.name+' · '+a.city)+'</option>').join('')+'</select>','oa')
+     +ef(t('c_placed'),esc(fmtD(ed?o.date:base,{day:'numeric',month:'long',year:'numeric'})))
+     +ef(t('c_deliv'),'<input id="od" type="date" data-f="deliver" value="'+esc(m.deliver)+'">','od')
+     +ef(t('terms'),'<span id="o-terms">—</span>')+ef(t('gm'),'<span id="o-gm">—</span>')+'</dl>'
+   +'<div id="o-note"></div>'+(locked?'<div class="sub">'+esc(t('lines_locked'))+'</div>':'')
+   +'<div class="panel tw"><table class="otable"><thead><tr><th>'+esc(t('wine'))+'</th><th class="num">'+esc(t('qty'))+'</th><th class="num">'+esc(t('unit'))+'</th><th class="num">'+esc(t('amt'))+'</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>'
+   +(locked?'':'<div><button class="btn sm" data-act="add-line">+ '+esc(t('add_line'))+'</button></div>')
+   +'<div id="o-tot"></div>';
 }
 const validLines=m=>m.lines.filter(l=>l.w&&l.c>=1);
 function updateOrder(){
   const m=ui.modal;if(!m||m.t!=='order')return;
   const locked=m.id&&m.status!=='draft';
-  let sub=0;
-  m.lines.forEach((l,i)=>{const w=l.w?W(l.w):null,lt=$('#lt-'+i),lw=$('#lw-'+i);if(!lt)return;
-    if(w&&l.c>=1){const v=l.c*w.cs*w.price;sub+=v;lt.textContent=l.c*w.cs+' '+t('btl')+' · '+money(v);lw.textContent=!locked&&l.c>w.stock?t('stock_warn',{n:w.stock}):'';}
-    else{lt.textContent='';lw.textContent='';}});
+  let sub=0,cost=0;
+  m.lines.forEach((l,i)=>{const w=l.w?W(l.w):null,lt=$('#lt-'+i),lp=$('#lp-'+i),lw=$('#lw-'+i);if(!lt)return;
+    if(w){lp.textContent=money(w.price);}else lp.textContent='—';
+    if(w&&l.c>=1){const v=l.c*w.cs*w.price;sub+=v;cost+=l.c*w.cs*w.cost;lt.textContent=money(v);
+      lw.textContent=l.c*w.cs+' '+t('btl')+(!locked&&l.c>w.stock?' · '+t('stock_warn',{n:w.stock}):'');lw.classList.toggle('warn-t',!locked&&l.c>w.stock);}
+    else{lt.textContent='—';lw.textContent='';}});
   const a=m.acc?A(m.acc):null,blocked=a&&permitState(a).k==='expired',ok=validLines(m).length>0&&!!a;
+  $('#o-terms').textContent=a?t('tm_'+a.terms):'—';
+  $('#o-gm').textContent=sub?money(sub-cost)+' ('+Math.round((sub-cost)/sub*100)+' %)':'—';
   $('#o-note').innerHTML=blocked&&!m.id?'<div class="note">'+esc(t('permit_block'))+'</div>':'';
   $('#o-tot').innerHTML=totalsHTML(sub);
   if(m.id){$('#o-save').disabled=!ok;}
   else{$('#o-draft').disabled=!ok;$('#o-conf').disabled=!ok||blocked;}
 }
+
+// One side panel shows either a record, or a form / delete confirmation in its place.
+// Closing a form returns to the record it was opened from.
+function renderLayer(){
+  const d=ui.drawer,m=ui.modal;
+  if(d&&!({acc:A,sup:S,ord:O}[d.t](d.id)))ui.drawer=null;
+  let body='';
+  if(m)body=m.t==='order'?mOrder(m):m.t==='del'?mDel(m):mForm(m);
+  else if(ui.drawer)body=d.t==='acc'?dAcc(A(d.id)):d.t==='sup'?dSup(S(d.id)):dOrd(O(d.id));
+  const key=m?(m.t+':'+(m.kind||'')+':'+(m.id||'new')):ui.drawer?('rec:'+ui.drawer.t+':'+ui.drawer.id):'';
+  const changed=key!==ui.layerKey;ui.layerKey=key;
+  $('#layer').innerHTML=body?'<div class="scrim" data-act="close-bg"></div><aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="mt">'+body+'</aside>':'';
+  document.body.style.overflow=body?'hidden':'';
+  if(m&&m.t==='order')updateOrder();
+  if(changed&&body){const dr=$('.drawer');if(dr)dr.scrollTop=0;
+    if(m&&(m.t==='form'||m.t==='order')){const f=dr&&dr.querySelector('input:not([disabled]),select:not([disabled])');if(f)f.focus({preventScroll:true});}}
+}
+
+const modalWrap=(title,body,acts,left)=>'<div class="dh"><div><h2 id="mt">'+esc(title)+'</h2></div>'+topActs((left||'')+acts)+'</div><div class="form-body">'+body+'</div>';
+const btnSave=()=>'<button class="btn" data-act="close">'+esc(t('cancel'))+'</button><button class="btn primary" data-act="save-form">'+esc(t('save'))+'</button>';
+const btnDel=(kind,id)=>'<button class="btn danger" data-act="ask-del" data-kind="'+kind+'" data-id="'+esc(id)+'">'+esc(t('delete'))+'</button>';
+const btnEdit=(kind,id)=>'<button class="btn" data-act="edit" data-kind="'+kind+'" data-id="'+esc(id)+'">'+esc(t('edit'))+'</button>';
+const supOpts=()=>suppliers.map(s=>[s.id,s.name]);
+const SH=id=>shipments.find(x=>x.id===id);
 
 // What a delete would affect, and whether it must be refused to keep records consistent.
 function delInfo(k,id){

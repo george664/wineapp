@@ -97,7 +97,7 @@ input,select,textarea{font:inherit;color:var(--ink);background:var(--surface);bo
 .fld label{font-size:12px;font-weight:600;color:var(--muted)}
 .g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
 .scrim{position:fixed;inset:0;background:rgba(6,12,9,.5);z-index:50}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(580px,100%);background:var(--surface);z-index:51;overflow-y:auto;border-left:1px solid var(--line);padding-top:calc(20px + env(safe-area-inset-top,0px));padding-bottom:calc(28px + env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:calc(100% * 2 / 3);background:var(--surface);z-index:51;overflow-y:auto;border-left:1px solid var(--line);padding-top:calc(20px + env(safe-area-inset-top,0px));padding-bottom:calc(28px + env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
 .dh{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
 .x{border:1px solid var(--line-strong);background:var(--surface);border-radius:6px;width:34px;height:34px;cursor:pointer;flex:none;font-size:18px;line-height:1}
 .pills{display:flex;gap:6px;flex-wrap:wrap}
@@ -146,3 +146,20 @@ input,select,textarea{font:inherit;color:var(--ink);background:var(--surface);bo
 .del-msg{margin:0}
 textarea{resize:vertical;line-height:1.45}
 .shell{min-height:100vh;min-height:100dvh}
+@media (max-width:860px){.drawer{width:100%}}
+.dh-acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;flex:none;max-width:100%}
+.dh{flex-wrap:wrap}
+.dh>div:first-child{min-width:0;flex:1 1 220px}
+.form-body{display:flex;flex-direction:column;gap:16px}
+.lnk-acc{padding:2px 0;border:0;display:block;width:auto;background:none}
+.lnk-acc .t{color:var(--accent-text);text-decoration:underline}
+.dl dd input,.dl dd select{margin-top:2px}
+.dl dt label{cursor:pointer}
+.sec h3 label{cursor:pointer}
+.otable{min-width:560px}
+.otable td{vertical-align:top}
+.otable .qty{width:84px;text-align:right}
+.otable td.rm{width:48px;text-align:right}
+.otable td.num{padding-top:19px}
+.otable td.num:has(input){padding-top:11px}
+.warn-t{color:var(--warn)}
