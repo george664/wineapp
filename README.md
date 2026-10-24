@@ -1,34 +1,60 @@
 # Arrivage
 
-Prototype app for a Quebec wine importer (private import) to manage suppliers, incoming shipments, client accounts (restaurants, grocers, wine shops, hotels) and orders. English and French.
+App for a Quebec wine importer (private import) to manage suppliers, incoming shipments, client accounts (restaurants, grocers, wine shops, hotels) and orders. English and French.
 
 ## What it does
 
 - **Dashboard:** sales this month, amounts to collect, cases to deliver, cases on the way. Also lists upcoming deliveries, supplier shipments, a six-month sales chart, and alerts for expiring permits, overdue invoices, quiet accounts and low stock.
 - **Suppliers:** estates, terms, lead times, wines with margin, shipments.
 - **Accounts:** permit number and expiry, payment terms, delivery notes, order history.
-- **Orders:** draft → confirmed → delivered → paid, with GST 5% and QST 9.975%. Confirming an order deducts stock. A client with an expired permit can have a draft but not a confirmed order.
+- **Orders:** draft → confirmed → delivered → paid, with GST 5% and QST 9.975%. Confirming an order deducts stock in the database. A client with an expired permit can have a draft but not a confirmed order.
+
+## Files
+
+| File | Purpose |
+|---|---|
+| `index.html`, `styles.css`, `app.js` | The app. Static files, no build step. |
+| `config.js` | Your Supabase URL and anon key. Empty = demo mode. |
+| `supabase/schema.sql` | Tables, security rules, the `confirm_order` function, live updates. |
+| `supabase/seed.sql` | Optional fictional sample data. |
+| `data/seed.json` | The same sample data, used in demo mode. |
+
+## Connect to Supabase
+
+1. **Create a project** at [supabase.com](https://supabase.com). Pick the Canada (Central) region to keep client data in Canada.
+2. **Create the database.** In the dashboard, open *SQL Editor → New query*, paste `supabase/schema.sql`, and run it. Run it once only.
+3. **Add sample data (optional).** Run `supabase/seed.sql` the same way. Skip this when you load the importer's real data.
+4. **Lock down sign-ups.** In *Authentication → Sign In / Providers*, turn off "Allow new users to sign up". Then add each staff member under *Authentication → Users → Add user*, with an email and password.
+5. **Connect the app.** In *Project Settings → API*, copy the Project URL and the `anon` `public` key into `config.js`:
+   ```js
+   window.ARRIVAGE_CONFIG = {
+     supabaseUrl: 'https://YOUR-PROJECT.supabase.co',
+     supabaseAnonKey: 'eyJ...'
+   };
+   ```
+   The anon key is safe to publish. The security rules only let signed-in users read or write.
+6. **Allow your site's address.** In *Authentication → URL Configuration*, set the Site URL to where you host the app (for example your GitHub Pages address).
+
+With `config.js` filled in, the app shows a sign-in screen. After signing in, every change is saved, and other signed-in users see it live.
+
+Never put the `service_role` key in this app. It bypasses all security rules.
 
 ## Run it
-
-It is a single static page with no build step.
 
 ```sh
 python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-Opening `index.html` directly from disk will not load the data, because browsers block `fetch` on `file://`. Use a local server, or enable GitHub Pages on this repo (Settings → Pages → deploy from `main`, root).
+Opening `index.html` straight from disk won't work, because browsers block loading files that way. Use a local server, or GitHub Pages (*Settings → Pages → deploy from `main`, root*).
 
-## Data
+## Demo mode
 
-- `data/seed.json` holds fictional sample data (suppliers, wines, shipments, accounts, orders, monthly sales).
-- Run standalone, the app loads this file and keeps changes **in memory only**. A reload resets them.
-- In its claude.ai artifact version, the same code saves to the artifact's shared database instead.
+Leave `config.js` empty to run without a database. The app loads `data/seed.json` and keeps changes in memory only. A reload resets them.
 
-## Next steps toward production
+## Next steps
 
-- Move storage to a hosted database with logins and roles (for example Supabase, Canada region).
-- Do stock deduction in the database so concurrent confirmations can't oversell.
-- PDF invoices with GST/QST numbers, CSV export for accounting, permit and overdue reminders.
+- Separate roles (owner, sales rep, warehouse) with narrower security rules.
+- PDF invoices with GST/QST registration numbers, CSV export for accounting.
+- Email reminders for expiring permits and overdue invoices (Supabase scheduled functions).
 - Check the permit and private-import rules with the importer (RACJ, SAQ) and review Law 25 privacy obligations.
