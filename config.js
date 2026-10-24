@@ -1,9 +1,7 @@
-// Copy this file to config.js and fill in your Supabase project's values
-// (Supabase dashboard → Project Settings → API).
-// The anon key is meant to be public: access is controlled by the row-level
-// security policies in supabase/schema.sql, which require a signed-in user.
-// Leave both empty to run the app in demo mode with data/seed.json.
+// Supabase project "wineapp" (Canada Central).
+// The anon key is meant to be public: row-level security in supabase/schema.sql
+// only lets signed-in users read or write. Never put the service_role key here.
 window.ARRIVAGE_CONFIG = {
-  supabaseUrl: '',      // e.g. 'https://abcdefghijklmnop.supabase.co'
-  supabaseAnonKey: ''   // the "anon public" key
+  supabaseUrl: 'https://hcflonhoflcbbubctxju.supabase.co',
+  supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhjZmxvbmhvZmxjYmJ1YmN0eGp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3NjE5NjMsImV4cCI6MjEwODMzNzk2M30.xHIMZsKaIraBzvoIbljFpqMVhhThxUe4yWW9-aBXB5Q'
 };

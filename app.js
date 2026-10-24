@@ -389,11 +389,15 @@ document.addEventListener('submit',async e=>{
   const btn=e.target.querySelector('button[type=submit]');btn.disabled=true;
   const {data,error}=await sb.auth.signInWithPassword({email:val('lg-email'),password:document.getElementById('lg-pass').value});
   btn.disabled=false;
-  if(error){ui.loginErr=t('login_err');$('#lg-err').textContent=ui.loginErr;return;}
+  if(error){ui.loginErr=error.status===400?t('login_err'):(error.message||t('login_err'));$('#lg-err').textContent=ui.loginErr;return;}
   ui.loginErr='';enter(data.session);
 });
 async function start(){
-  if(CFG.supabaseUrl&&CFG.supabaseAnonKey&&window.supabase){
+  if(CFG.supabaseUrl&&CFG.supabaseAnonKey&&!window.supabase){
+    // Configured for Supabase but the library didn't load: never fall back to demo data silently.
+    ui.state='error';ui.err='Supabase library did not load. Check your connection and reload.';renderAll();return;
+  }
+  if(CFG.supabaseUrl&&CFG.supabaseAnonKey){
     mode='sb';
     sb=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseAnonKey);
     sb.auth.onAuthStateChange(ev=>{if(ev==='SIGNED_OUT'){if(channel){sb.removeChannel(channel);channel=null;}ui.state='login';ui.user='';ui.drawer=null;ui.modal=null;renderAll();}});

@@ -19,7 +19,17 @@ App for a Quebec wine importer (private import) to manage suppliers, incoming sh
 | `supabase/seed.sql` | Optional fictional sample data. |
 | `data/seed.json` | The same sample data, used in demo mode. |
 
-## Connect to Supabase
+## Deploy on Vercel
+
+The app is static, so Vercel needs no build settings.
+
+1. In Vercel, choose *Add New → Project*, import `george664/wineapp`, keep the framework preset at **Other**, and deploy.
+2. Copy the deployment address (for example `https://wineapp.vercel.app`) into Supabase under *Authentication → URL Configuration → Site URL*.
+3. Every push to `main` redeploys automatically.
+
+## Supabase
+
+This repo is already connected to the Supabase project **wineapp** (Canada Central): see `config.js`. The schema and the sample data are loaded. To set up a fresh project instead:
 
 1. **Create a project** at [supabase.com](https://supabase.com). Pick the Canada (Central) region to keep client data in Canada.
 2. **Create the database.** In the dashboard, open *SQL Editor → New query*, paste `supabase/schema.sql`, and run it. Run it once only.
