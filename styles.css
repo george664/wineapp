@@ -136,3 +136,13 @@ input,select,textarea{font:inherit;color:var(--ink);background:var(--surface);bo
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 .login{max-width:380px;display:flex;flex-direction:column;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px}
 .login .err{color:var(--bad);font-size:13px;min-height:1em}
+.btn.sm{min-height:30px;padding:4px 10px;font-size:13px}
+.btn.danger{color:var(--bad)}
+.btn.danger:hover{background:var(--bad-soft)}
+.btn.danger-fill{background:var(--bad);border-color:var(--bad);color:var(--bg)}
+.btn.danger-fill:hover{filter:brightness(1.08)}
+.acts-left{margin-right:auto;display:flex;gap:8px}
+.shead{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.del-msg{margin:0}
+textarea{resize:vertical;line-height:1.45}
+.shell{min-height:100vh;min-height:100dvh}

@@ -9,6 +9,19 @@ App for a Quebec wine importer (private import) to manage suppliers, incoming sh
 - **Accounts:** permit number and expiry, payment terms, delivery notes, order history.
 - **Orders:** draft → confirmed → delivered → paid, with GST 5% and QST 9.975%. Confirming an order deducts stock in the database. A client with an expired permit can have a draft but not a confirmed order.
 
+## Editing and deleting
+
+Every record type (accounts, suppliers, wines, shipments, orders) can be created, edited and deleted. Open a record and use **Edit** or **Delete**. Wines and shipments are edited from their supplier's panel; click a row to edit it.
+
+Deleting is refused when it would leave broken references:
+
+- A supplier with wines or shipments can't be deleted until those are removed or moved.
+- A wine that appears in any order can't be deleted. Set its stock to 0 instead.
+- An account with orders can't be deleted until its orders are removed.
+- Deleting a confirmed order puts its cases back into stock (`delete_order` in the database). Deleting a delivered or paid order leaves stock as is.
+
+Once an order is confirmed, only its delivery date can be edited, because its stock has already been deducted.
+
 ## Files
 
 | File | Purpose |

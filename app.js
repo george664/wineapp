@@ -22,7 +22,7 @@ wine:'Wine',qty:'Cases',bottles:'Bottles',unit:'Price / btl',amt:'Amount',sub:'S
 adv_confirmed:'Confirm order',adv_delivered:'Mark delivered',adv_paid:'Mark paid',due:'Due {date}',placed_on:'Placed {date}',deliver_on:'Delivery {date}',
 acc:'Account',dl:'Delivery date',add_line:'Add a wine',pick:'Select an account',pickw:'Select a wine',save_draft:'Save draft',cancel:'Cancel',permit_block:'This permit has expired. You can save a draft but not confirm.',stock_warn:'Only {n} in stock',
 f_name:'Name',f_type:'Type',f_city:'City',f_area:'Area',f_contact:'Contact person',f_email:'Email',f_pno:'Permit number',f_pexp:'Permit expiry',f_terms:'Payment terms',f_country:'Country',f_region:'Region',f_lead:'Lead time (weeks)',f_pay:'Terms',save:'Save',req:'Name is required.',
-t_acc:'Account added',t_sup:'Supplier added',t_ord:'Order {id} saved',t_st:'Order {id}: {s}',close:'Close',rm:'Remove line',none:'None',loading:'Loading your data…',nodb:'Sign in to claude.ai to see and edit this data.',t_err:'Could not save. The change was undone.',login_t:'Sign in',login_s:'Use the email and password your administrator created for you.',email:'Email',password:'Password',sign_in:'Sign in',sign_out:'Sign out',login_err:'Email or password is incorrect.',demo:'Demo mode. Changes are not saved.',load_err:'Could not load data: {m}'},
+t_acc:'Account added',t_sup:'Supplier added',t_ord:'Order {id} saved',t_st:'Order {id}: {s}',close:'Close',rm:'Remove line',none:'None',loading:'Loading your data…',nodb:'Sign in to claude.ai to see and edit this data.',t_err:'Could not save. The change was undone.',login_t:'Sign in',login_s:'Use the email and password your administrator created for you.',email:'Email',password:'Password',sign_in:'Sign in',sign_out:'Sign out',login_err:'Email or password is incorrect.',demo:'Demo mode. Changes are not saved.',load_err:'Could not load data: {m}',edit:'Edit',delete:'Delete',e_acc:'Edit account',e_sup:'Edit supplier',new_wine:'Add wine',e_wine:'Edit wine',new_ship:'Add shipment',e_ship:'Edit shipment',e_ord:'Edit order {id}',del_t:'Delete {name}?',del_ok:'This can\u2019t be undone.',del_sup_block:'This supplier still has {w} wines and {s} shipments. Delete or move those first.',del_wine_block:'This wine appears in {n} orders, so it can\u2019t be deleted. Set its stock to 0 instead.',del_acc_block:'This account has {n} orders. Delete those first.',del_ord_conf:'Its {n} cases go back into stock.',del_ord_done:'Stock isn\u2019t changed, because the order was already delivered.',t_saved:'Saved',t_deleted:'Deleted',f_wname:'Wine name',f_sup:'Supplier',f_vint:'Vintage (0 = non-vintage)',f_color:'Colour',f_cs:'Bottles per case',f_cost:'Cost per bottle',f_price:'Price per bottle',f_stock:'Cases in stock',f_transit:'Cases on the way',f_ref:'Reference',f_cases:'Cases',f_status:'Status',f_eta:'Arrival date',lines_locked:'Wines and quantities can only be changed while the order is a draft.'},
 fr:{
 nav_dash:'Tableau de bord',nav_sup:'Fournisseurs',nav_cli:'Clients',nav_ord:'Commandes',tag:'Importation privée, Québec',sample:'Données d’exemple. Rien n’est enregistré.',theme:'Clair / sombre',
 dash_t:'Cette semaine',k_sales:'Ventes du mois',k_sales_s:'avant taxes, à ce jour',k_ar:'À encaisser',k_ar_s:'{n} en retard',k_ar_0:'aucun retard',k_del:'À livrer',k_del_s:'{n} commandes confirmées',k_inc:'Caisses en route',k_inc_s:'{n} arrivages',
@@ -43,7 +43,7 @@ wine:'Vin',qty:'Caisses',bottles:'Bouteilles',unit:'Prix / btl',amt:'Montant',su
 adv_confirmed:'Confirmer la commande',adv_delivered:'Marquer livrée',adv_paid:'Marquer payée',due:'Échéance {date}',placed_on:'Passée le {date}',deliver_on:'Livraison le {date}',
 acc:'Client',dl:'Date de livraison',add_line:'Ajouter un vin',pick:'Choisir un client',pickw:'Choisir un vin',save_draft:'Enregistrer le brouillon',cancel:'Annuler',permit_block:'Ce permis est expiré. Vous pouvez enregistrer un brouillon, mais pas confirmer.',stock_warn:'Seulement {n} en stock',
 f_name:'Nom',f_type:'Type',f_city:'Ville',f_area:'Secteur',f_contact:'Personne-ressource',f_email:'Courriel',f_pno:'N° de permis',f_pexp:'Expiration du permis',f_terms:'Conditions de paiement',f_country:'Pays',f_region:'Région',f_lead:'Délai (semaines)',f_pay:'Conditions',save:'Enregistrer',req:'Le nom est obligatoire.',
-t_acc:'Client ajouté',t_sup:'Fournisseur ajouté',t_ord:'Commande {id} enregistrée',t_st:'Commande {id} : {s}',close:'Fermer',rm:'Retirer la ligne',none:'Aucun',loading:'Chargement des données…',nodb:'Connectez-vous à claude.ai pour voir et modifier ces données.',t_err:'Enregistrement impossible. La modification a été annulée.',login_t:'Connexion',login_s:'Utilisez le courriel et le mot de passe créés par votre administrateur.',email:'Courriel',password:'Mot de passe',sign_in:'Se connecter',sign_out:'Se déconnecter',login_err:'Courriel ou mot de passe incorrect.',demo:'Mode démo. Les changements ne sont pas enregistrés.',load_err:'Impossible de charger les données : {m}'}};
+t_acc:'Client ajouté',t_sup:'Fournisseur ajouté',t_ord:'Commande {id} enregistrée',t_st:'Commande {id} : {s}',close:'Fermer',rm:'Retirer la ligne',none:'Aucun',loading:'Chargement des données…',nodb:'Connectez-vous à claude.ai pour voir et modifier ces données.',t_err:'Enregistrement impossible. La modification a été annulée.',login_t:'Connexion',login_s:'Utilisez le courriel et le mot de passe créés par votre administrateur.',email:'Courriel',password:'Mot de passe',sign_in:'Se connecter',sign_out:'Se déconnecter',login_err:'Courriel ou mot de passe incorrect.',demo:'Mode démo. Les changements ne sont pas enregistrés.',load_err:'Impossible de charger les données : {m}',edit:'Modifier',delete:'Supprimer',e_acc:'Modifier le client',e_sup:'Modifier le fournisseur',new_wine:'Ajouter un vin',e_wine:'Modifier le vin',new_ship:'Ajouter un arrivage',e_ship:'Modifier l\u2019arrivage',e_ord:'Modifier la commande {id}',del_t:'Supprimer {name} ?',del_ok:'Cette action est irréversible.',del_sup_block:'Ce fournisseur a encore {w} vins et {s} arrivages. Supprimez-les ou déplacez-les d\u2019abord.',del_wine_block:'Ce vin figure dans {n} commandes et ne peut pas être supprimé. Mettez plutôt son stock à 0.',del_acc_block:'Ce client a {n} commandes. Supprimez-les d\u2019abord.',del_ord_conf:'Ses {n} caisses retournent en stock.',del_ord_done:'Le stock ne change pas, car la commande a déjà été livrée.',t_saved:'Enregistré',t_deleted:'Supprimé',f_wname:'Nom du vin',f_sup:'Fournisseur',f_vint:'Millésime (0 = non millésimé)',f_color:'Couleur',f_cs:'Bouteilles par caisse',f_cost:'Coût par bouteille',f_price:'Prix par bouteille',f_stock:'Caisses en stock',f_transit:'Caisses en route',f_ref:'Référence',f_cases:'Caisses',f_status:'Statut',f_eta:'Date d\u2019arrivée',lines_locked:'Les vins et les quantités ne peuvent être modifiés que pour une commande en brouillon.'}};
 const t=(k,p)=>{let s=(I[lang][k]!=null?I[lang][k]:(I.en[k]!=null?I.en[k]:k));if(p)for(const x in p)s=s.split('{'+x+'}').join(p[x]);return s;};
 const L=o=>typeof o==='string'?o:(o[lang]||o.fr||o.en||'');
 const base=new Date();base.setHours(12,0,0,0);
@@ -204,17 +204,19 @@ function dAcc(a){
    +'<div class="sec"><h3>'+esc(t('dnote'))+'</h3><div>'+esc(L(a.note))+'</div><div class="sub">'+esc(t('since',{y:a.since}))+'</div></div>'
    +(top.length?'<div class="sec"><h3>'+esc(t('top'))+'</h3><div class="panel">'+top.map(([w,c])=>'<div class="row" style="cursor:default;grid-template-columns:minmax(0,1fr) auto"><span class="t">'+wdot(W(w))+esc(wlabel(W(w)))+'</span><span class="r">'+c+' '+esc(t('cases'))+'</span></div>').join('')+'</div></div>':'')
    +'<div class="sec"><h3>'+esc(t('hist'))+'</h3>'+(ords.length?'<div class="panel">'+ords.map(o=>'<button class="row" data-act="open-ord" data-id="'+o.id+'"><span class="mono">'+esc(o.id)+'</span><span>'+ordPill(o.status)+' <span class="sub">'+esc(fmtD(o.date))+'</span></span><span class="r">'+money(oTotal(o))+'</span></button>').join('')+'</div>':'<div class="sub">'+esc(t('never'))+'</div>')+'</div>'
-   +'<div class="acts"><button class="btn primary" data-act="new-ord" data-id="'+a.id+'">'+esc(t('new_ord'))+'</button></div>';
+   +'<div class="acts"><span class="acts-left">'+btnDel('acc',a.id)+'</span>'+btnEdit('acc',a.id)+'<button class="btn primary" data-act="new-ord" data-id="'+a.id+'">'+esc(t('new_ord'))+'</button></div>';
 }
 
 function dSup(s){
-  const ws=wines.filter(w=>w.sup===s.id),sh=shipments.filter(x=>x.sup===s.id).sort((a,b)=>b.eta-a.eta);
-  return '<div class="dh"><div><h2>'+esc(s.name)+'</h2><div class="sub">'+esc(s.region+', '+s.country)+'</div></div>'+closeBtn()+'</div>'
+  const ws=wines.filter(w=>w.sup===s.id),sh=shipments.filter(x=>x.sup===s.id).sort((a,b)=>(b.eta||0)-(a.eta||0));
+  const shead=(title,kind,label)=>'<div class="shead"><h3>'+esc(title)+'</h3><button class="btn sm" data-act="new" data-kind="'+kind+'" data-sup="'+esc(s.id)+'">+ '+esc(label)+'</button></div>';
+  return '<div class="dh"><div><h2>'+esc(s.name)+'</h2><div class="sub">'+esc([s.region,s.country].filter(Boolean).join(', '))+'</div></div>'+closeBtn()+'</div>'
    +'<dl class="dl">'+dd(t('contact'),esc(s.contact)+'<br><span class="sub">'+esc(s.email)+'</span>')+dd(t('c_terms'),esc(s.terms))+dd(t('c_lead'),esc(t('wk',{n:s.lead})))+'</dl>'
-   +'<div class="sec"><h3>'+esc(t('notes'))+'</h3><div>'+esc(L(s.note))+'</div></div>'
-   +'<div class="sec"><h3>'+esc(t('wines'))+'</h3><div class="panel tw"><table><thead><tr><th>'+esc(t('wine'))+'</th><th class="num">'+esc(t('stock'))+'</th><th class="num">'+esc(t('transit'))+'</th><th class="num">'+esc(t('margin'))+'</th></tr></thead><tbody>'
-   +ws.map(w=>'<tr><td>'+wdot(w)+esc(wlabel(w))+'<div class="sub">'+esc(t('co_'+w.color))+' · '+w.cs+' '+esc(t('btl'))+'</div></td><td class="num">'+(w.stock===0?pill('bad','0'):w.stock)+'</td><td class="num">'+(w.transit||'—')+'</td><td class="num">'+Math.round((w.price-w.cost)/w.price*100)+' %</td></tr>').join('')+'</tbody></table></div></div>'
-   +'<div class="sec"><h3>'+esc(t('ships'))+'</h3>'+(sh.length?'<div class="panel">'+sh.map(x=>'<div class="row" style="cursor:default"><span>'+shPill(x.status)+'</span><span class="mono">'+esc(x.ref)+' · '+x.cases+' '+esc(t('cases'))+'</span><span class="r">'+esc(fmtD(x.eta))+'</span></div>').join('')+'</div>':'<div class="sub">'+esc(t('none'))+'</div>')+'</div>';
+   +'<div class="sec"><h3>'+esc(t('notes'))+'</h3><div>'+esc(L(s.note||''))+'</div></div>'
+   +'<div class="sec">'+shead(t('wines'),'wine',t('new_wine'))+(ws.length?'<div class="panel tw"><table><thead><tr><th>'+esc(t('wine'))+'</th><th class="num">'+esc(t('stock'))+'</th><th class="num">'+esc(t('transit'))+'</th><th class="num">'+esc(t('margin'))+'</th></tr></thead><tbody>'
+   +ws.map(w=>'<tr class="click" tabindex="0" data-act="edit" data-kind="wine" data-id="'+esc(w.id)+'" title="'+esc(t('edit'))+'"><td>'+wdot(w)+esc(wlabel(w))+'<div class="sub">'+esc(t('co_'+w.color))+' · '+w.cs+' '+esc(t('btl'))+'</div></td><td class="num">'+(w.stock===0?pill('bad','0'):w.stock)+'</td><td class="num">'+(w.transit||'—')+'</td><td class="num">'+(w.price?Math.round((w.price-w.cost)/w.price*100)+' %':'—')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="sub">'+esc(t('none'))+'</div>')+'</div>'
+   +'<div class="sec">'+shead(t('ships'),'ship',t('new_ship'))+(sh.length?'<div class="panel">'+sh.map(x=>'<button class="row" data-act="edit" data-kind="ship" data-id="'+esc(x.id)+'" title="'+esc(t('edit'))+'"><span>'+shPill(x.status)+'</span><span class="mono">'+esc(x.ref||'—')+' · '+x.cases+' '+esc(t('cases'))+'</span><span class="r">'+(x.eta?esc(fmtD(x.eta)):'—')+'</span></button>').join('')+'</div>':'<div class="sub">'+esc(t('none'))+'</div>')+'</div>'
+   +'<div class="acts"><span class="acts-left">'+btnDel('sup',s.id)+'</span>'+btnEdit('sup',s.id)+'</div>';
 }
 
 function dOrd(o){
@@ -227,7 +229,7 @@ function dOrd(o){
    +o.lines.map(l=>{const w=W(l.w);return '<tr><td>'+wdot(w)+esc(wlabel(w))+'<div class="sub">'+units(l)+' '+esc(t('btl'))+'</div></td><td class="num">'+l.c+'</td><td class="num">'+money(w.price)+'</td><td class="num">'+money(units(l)*w.price)+'</td></tr>';}).join('')+'</tbody></table></div>'
    +totalsHTML(sub)
    +(blocked?'<div class="note">'+esc(t('permit_block'))+'</div>':'')
-   +(nxt?'<div class="acts"><button class="btn primary" data-act="advance" data-id="'+o.id+'" '+(blocked?'disabled':'')+'>'+esc(t('adv_'+nxt))+'</button></div>':'');
+   +'<div class="acts"><span class="acts-left">'+btnDel('ord',o.id)+'</span>'+btnEdit('ord',o.id)+(nxt?'<button class="btn primary" data-act="advance" data-id="'+o.id+'" '+(blocked?'disabled':'')+'>'+esc(t('adv_'+nxt))+'</button>':'')+'</div>';
 }
 
 function renderLayer(){
@@ -235,49 +237,135 @@ function renderLayer(){
   if(d&&!({acc:A,sup:S,ord:O}[d.t](d.id)))ui.drawer=null;
   if(ui.drawer){const body=d.t==='acc'?dAcc(A(d.id)):d.t==='sup'?dSup(S(d.id)):dOrd(O(d.id));
     h+='<div class="scrim" data-act="close-bg"></div><aside class="drawer" role="dialog" aria-modal="true">'+body+'</aside>';}
-  if(m)h+=m.t==='order'?mOrder(m):mForm(m.t);
+  if(m)h+=m.t==='order'?mOrder(m):m.t==='del'?mDel(m):mForm(m);
   $('#layer').innerHTML=h;
   document.body.style.overflow=(ui.drawer||m)?'hidden':'';
   if(m&&m.t==='order')updateOrder();
 }
 
-const fld=(id,label,type,val)=>'<div class="fld"><label for="'+id+'">'+esc(label)+'</label><input id="'+id+'" type="'+(type||'text')+'" value="'+esc(val||'')+'"></div>';
-const sel=(id,label,opts)=>'<div class="fld"><label for="'+id+'">'+esc(label)+'</label><select id="'+id+'">'+opts.map(([v,l])=>'<option value="'+v+'">'+esc(l)+'</option>').join('')+'</select></div>';
-const modalWrap=(title,body,acts)=>'<div class="modal" data-act="close-bg"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="dh"><h2 id="mt">'+esc(title)+'</h2>'+closeBtn()+'</div>'+body+'<div class="acts">'+acts+'</div></div></div>';
-function mForm(k){
-  if(k==='acc')return modalWrap(t('new_acc'),'<div class="g2">'+fld('fa-name',t('f_name'))+sel('fa-type',t('f_type'),['resto','epicerie','caviste','hotel'].map(x=>[x,t('ty_'+x)]))+fld('fa-city',t('f_city'))+fld('fa-area',t('f_area'))+fld('fa-contact',t('f_contact'))+fld('fa-email',t('f_email'),'email')+fld('fa-pno',t('f_pno'))+fld('fa-pexp',t('f_pexp'),'date')+sel('fa-terms',t('f_terms'),['net30','net15','cod'].map(x=>[x,t('tm_'+x)]))+'</div>','<button class="btn" data-act="close">'+esc(t('cancel'))+'</button><button class="btn primary" data-act="save-acc">'+esc(t('save'))+'</button>');
-  return modalWrap(t('new_sup'),'<div class="g2">'+fld('fs-name',t('f_name'))+fld('fs-country',t('f_country'))+fld('fs-region',t('f_region'))+fld('fs-contact',t('f_contact'))+fld('fs-email',t('f_email'),'email')+fld('fs-lead',t('f_lead'),'number','6')+fld('fs-terms',t('f_pay'),'text','Net 30, EUR')+'</div>','<button class="btn" data-act="close">'+esc(t('cancel'))+'</button><button class="btn primary" data-act="save-sup">'+esc(t('save'))+'</button>');
+const fld=(id,label,type,val,extra)=>'<div class="fld"><label for="'+id+'">'+esc(label)+'</label><input id="'+id+'" type="'+(type||'text')+'" value="'+esc(val==null?'':val)+'"'+(extra||'')+'></div>';
+const sel=(id,label,opts,cur)=>'<div class="fld"><label for="'+id+'">'+esc(label)+'</label><select id="'+id+'">'+opts.map(([v,l])=>'<option value="'+esc(v)+'"'+(String(v)===String(cur)?' selected':'')+'>'+esc(l)+'</option>').join('')+'</select></div>';
+const area=(id,label,val)=>'<div class="fld" style="grid-column:1/-1"><label for="'+id+'">'+esc(label)+'</label><textarea id="'+id+'" rows="3">'+esc(val||'')+'</textarea></div>';
+const modalWrap=(title,body,acts,left)=>'<div class="modal" data-act="close-bg"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="dh"><h2 id="mt">'+esc(title)+'</h2>'+closeBtn()+'</div>'+body+'<div class="acts">'+(left?'<span class="acts-left">'+left+'</span>':'')+acts+'</div></div></div>';
+const btnSave=()=>'<button class="btn" data-act="close">'+esc(t('cancel'))+'</button><button class="btn primary" data-act="save-form">'+esc(t('save'))+'</button>';
+const btnDel=(kind,id)=>'<button class="btn danger" data-act="ask-del" data-kind="'+kind+'" data-id="'+esc(id)+'">'+esc(t('delete'))+'</button>';
+const btnEdit=(kind,id)=>'<button class="btn" data-act="edit" data-kind="'+kind+'" data-id="'+esc(id)+'">'+esc(t('edit'))+'</button>';
+const supOpts=()=>suppliers.map(s=>[s.id,s.name]);
+const SH=id=>shipments.find(x=>x.id===id);
+
+// Create / edit form for accounts, suppliers, wines and shipments.
+function mForm(m){
+  const k=m.kind,ed=!!m.id;
+  if(k==='acc'){const r=ed?A(m.id):{type:'resto',terms:'net30'};
+    return modalWrap(t(ed?'e_acc':'new_acc'),'<div class="g2">'+fld('fa-name',t('f_name'),'text',r.name)+sel('fa-type',t('f_type'),['resto','epicerie','caviste','hotel'].map(x=>[x,t('ty_'+x)]),r.type)+fld('fa-city',t('f_city'),'text',r.city)+fld('fa-area',t('f_area'),'text',r.area)+fld('fa-contact',t('f_contact'),'text',r.contact)+fld('fa-email',t('f_email'),'email',r.email)+fld('fa-pno',t('f_pno'),'text',r.pno)+fld('fa-pexp',t('f_pexp'),'date',r.pexp?iso(r.pexp):'')+sel('fa-terms',t('f_terms'),['net30','net15','cod'].map(x=>[x,t('tm_'+x)]),r.terms)+area('fa-note',t('dnote'),r.note?L(r.note):'')+'</div>',btnSave());}
+  if(k==='sup'){const r=ed?S(m.id):{lead:6,terms:'Net 30, EUR'};
+    return modalWrap(t(ed?'e_sup':'new_sup'),'<div class="g2">'+fld('fs-name',t('f_name'),'text',r.name)+fld('fs-country',t('f_country'),'text',r.country)+fld('fs-region',t('f_region'),'text',r.region)+fld('fs-contact',t('f_contact'),'text',r.contact)+fld('fs-email',t('f_email'),'email',r.email)+fld('fs-lead',t('f_lead'),'number',r.lead,' min="0" step="1"')+fld('fs-terms',t('f_pay'),'text',r.terms)+area('fs-note',t('notes'),r.note?L(r.note):'')+'</div>',btnSave());}
+  if(k==='wine'){const r=ed?W(m.id):{sup:m.sup,vint:base.getFullYear()-2,color:'red',cs:6,stock:0,transit:0};
+    return modalWrap(t(ed?'e_wine':'new_wine'),'<div class="g2">'+fld('fw-name',t('f_wname'),'text',r.name)+sel('fw-sup',t('f_sup'),supOpts(),r.sup)+fld('fw-vint',t('f_vint'),'number',r.vint,' min="0" step="1"')+sel('fw-color',t('f_color'),['red','white','rose','fortified'].map(x=>[x,t('co_'+x)]),r.color)+fld('fw-cs',t('f_cs'),'number',r.cs,' min="1" step="1"')+fld('fw-cost',t('f_cost'),'number',r.cost,' min="0" step="0.01"')+fld('fw-price',t('f_price'),'number',r.price,' min="0" step="0.01"')+fld('fw-stock',t('f_stock'),'number',r.stock,' min="0" step="1"')+fld('fw-transit',t('f_transit'),'number',r.transit,' min="0" step="1"')+'</div>',btnSave(),ed?btnDel('wine',m.id):'');}
+  const r=ed?SH(m.id):{sup:m.sup,status:'production',eta:off(42),cases:0};
+  return modalWrap(t(ed?'e_ship':'new_ship'),'<div class="g2">'+sel('fh-sup',t('f_sup'),supOpts(),r.sup)+fld('fh-ref',t('f_ref'),'text',r.ref)+fld('fh-cases',t('f_cases'),'number',r.cases,' min="0" step="1"')+sel('fh-status',t('f_status'),['production','sea','customs','received'].map(x=>[x,t('sh_'+x)]),r.status)+fld('fh-eta',t('f_eta'),'date',r.eta?iso(r.eta):'')+'</div>',btnSave(),ed?btnDel('ship',m.id):'');
 }
+
 const wineOpts=s=>suppliers.map(sp=>'<optgroup label="'+esc(sp.name)+'">'+wines.filter(w=>w.sup===sp.id).map(w=>'<option value="'+w.id+'"'+(w.id===s?' selected':'')+'>'+esc(wlabel(w)+', '+money(w.price))+'</option>').join('')+'</optgroup>').join('');
+// New order, or edit an existing one. Wines and quantities are locked once an order is confirmed,
+// because stock has already been deducted for them.
 function mOrder(m){
+  const ed=!!m.id,locked=ed&&m.status!=='draft',dis=locked?' disabled':'';
   const accs=accounts.slice().sort((a,b)=>a.name.localeCompare(b.name));
-  const lines=m.lines.map((l,i)=>'<div class="oline"><select id="ow-'+i+'" data-f="wine" data-i="'+i+'" aria-label="'+esc(t('wine'))+'"><option value="">'+esc(t('pickw'))+'</option>'+wineOpts(l.w)+'</select><input id="oq-'+i+'" type="number" min="1" step="1" value="'+l.c+'" data-f="qty" data-i="'+i+'" aria-label="'+esc(t('qty'))+'"><div class="lt" id="lt-'+i+'"></div><button class="x" data-act="rm-line" data-i="'+i+'" aria-label="'+esc(t('rm'))+'">×</button></div><div class="lw" id="lw-'+i+'"></div>').join('');
-  const body='<div class="g2"><div class="fld"><label for="oa">'+esc(t('acc'))+'</label><select id="oa" data-f="acc"><option value="">'+esc(t('pick'))+'</option>'+accs.map(a=>'<option value="'+a.id+'"'+(a.id===m.acc?' selected':'')+'>'+esc(a.name+' · '+a.city)+'</option>').join('')+'</select></div><div class="fld"><label for="od">'+esc(t('dl'))+'</label><input id="od" type="date" data-f="deliver" value="'+esc(m.deliver)+'"></div></div>'
-   +'<div id="o-note"></div><div class="sec">'+lines+'<div><button class="btn" data-act="add-line">+ '+esc(t('add_line'))+'</button></div></div><div id="o-tot"></div>';
+  const lines=m.lines.map((l,i)=>'<div class="oline"><select id="ow-'+i+'" data-f="wine" data-i="'+i+'" aria-label="'+esc(t('wine'))+'"'+dis+'><option value="">'+esc(t('pickw'))+'</option>'+wineOpts(l.w)+'</select><input id="oq-'+i+'" type="number" min="1" step="1" value="'+l.c+'" data-f="qty" data-i="'+i+'" aria-label="'+esc(t('qty'))+'"'+dis+'><div class="lt" id="lt-'+i+'"></div>'+(locked?'<span></span>':'<button class="x" data-act="rm-line" data-i="'+i+'" aria-label="'+esc(t('rm'))+'">×</button>')+'</div><div class="lw" id="lw-'+i+'"></div>').join('');
+  const body='<div class="g2"><div class="fld"><label for="oa">'+esc(t('acc'))+'</label><select id="oa" data-f="acc"'+dis+'><option value="">'+esc(t('pick'))+'</option>'+accs.map(a=>'<option value="'+a.id+'"'+(a.id===m.acc?' selected':'')+'>'+esc(a.name+' · '+a.city)+'</option>').join('')+'</select></div><div class="fld"><label for="od">'+esc(t('dl'))+'</label><input id="od" type="date" data-f="deliver" value="'+esc(m.deliver)+'"></div></div>'
+   +'<div id="o-note"></div>'+(locked?'<div class="sub">'+esc(t('lines_locked'))+'</div>':'')+'<div class="sec">'+lines+(locked?'':'<div><button class="btn" data-act="add-line">+ '+esc(t('add_line'))+'</button></div>')+'</div><div id="o-tot"></div>';
+  if(ed)return modalWrap(t('e_ord',{id:m.id}),body,'<button class="btn" data-act="close">'+esc(t('cancel'))+'</button><button class="btn primary" id="o-save" data-act="save-order" data-id="edit">'+esc(t('save'))+'</button>');
   return modalWrap(t('new_ord'),body,'<button class="btn" data-act="close">'+esc(t('cancel'))+'</button><button class="btn" id="o-draft" data-act="save-order" data-id="draft">'+esc(t('save_draft'))+'</button><button class="btn primary" id="o-conf" data-act="save-order" data-id="confirmed">'+esc(t('adv_confirmed'))+'</button>');
 }
 const validLines=m=>m.lines.filter(l=>l.w&&l.c>=1);
 function updateOrder(){
   const m=ui.modal;if(!m||m.t!=='order')return;
+  const locked=m.id&&m.status!=='draft';
   let sub=0;
   m.lines.forEach((l,i)=>{const w=l.w?W(l.w):null,lt=$('#lt-'+i),lw=$('#lw-'+i);if(!lt)return;
-    if(w&&l.c>=1){const v=l.c*w.cs*w.price;sub+=v;lt.textContent=l.c*w.cs+' '+t('btl')+' · '+money(v);lw.textContent=l.c>w.stock?t('stock_warn',{n:w.stock}):'';}
+    if(w&&l.c>=1){const v=l.c*w.cs*w.price;sub+=v;lt.textContent=l.c*w.cs+' '+t('btl')+' · '+money(v);lw.textContent=!locked&&l.c>w.stock?t('stock_warn',{n:w.stock}):'';}
     else{lt.textContent='';lw.textContent='';}});
   const a=m.acc?A(m.acc):null,blocked=a&&permitState(a).k==='expired',ok=validLines(m).length>0&&!!a;
-  $('#o-note').innerHTML=blocked?'<div class="note">'+esc(t('permit_block'))+'</div>':'';
+  $('#o-note').innerHTML=blocked&&!m.id?'<div class="note">'+esc(t('permit_block'))+'</div>':'';
   $('#o-tot').innerHTML=totalsHTML(sub);
-  $('#o-draft').disabled=!ok;$('#o-conf').disabled=!ok||blocked;
+  if(m.id){$('#o-save').disabled=!ok;}
+  else{$('#o-draft').disabled=!ok;$('#o-conf').disabled=!ok||blocked;}
 }
-const nextId=()=>'CMD-'+(Math.max(...orders.map(o=>+o.id.slice(4)))+1);
+
+// What a delete would affect, and whether it must be refused to keep records consistent.
+function delInfo(k,id){
+  if(k==='sup'){const s=S(id),w=wines.filter(x=>x.sup===id).length,h=shipments.filter(x=>x.sup===id).length;return{name:s.name,block:(w||h)?t('del_sup_block',{w,s:h}):''};}
+  if(k==='wine'){const w=W(id),n=orders.filter(o=>o.lines.some(l=>l.w===id)).length;return{name:wlabel(w),block:n?t('del_wine_block',{n}):''};}
+  if(k==='ship'){const x=SH(id);return{name:x.ref||S(x.sup).name,block:''};}
+  if(k==='acc'){const a=A(id),n=orders.filter(o=>o.acc===id).length;return{name:a.name,block:n?t('del_acc_block',{n}):''};}
+  const o=O(id);return{name:o.id,block:'',note:o.status==='confirmed'?t('del_ord_conf',{n:oCases(o)}):o.status==='draft'?'':t('del_ord_done')};
+}
+function mDel(m){
+  const d=delInfo(m.kind,m.id);
+  if(d.block)return modalWrap(t('del_t',{name:d.name}),'<div class="note">'+esc(d.block)+'</div>','<button class="btn" data-act="close">'+esc(t('close'))+'</button>');
+  return modalWrap(t('del_t',{name:d.name}),'<p class="del-msg">'+esc((d.note?d.note+' ':'')+t('del_ok'))+'</p>','<button class="btn" data-act="close">'+esc(t('cancel'))+'</button><button class="btn danger-fill" data-act="do-del">'+esc(t('delete'))+'</button>');
+}
+
+const nextId=()=>'CMD-'+(Math.max(1000,...orders.map(o=>+o.id.slice(4)||0))+1);
+const newId=p=>p+Date.now().toString(36);
 const confirmStock=o=>o.lines.forEach(l=>{const w=W(l.w);w.stock=Math.max(0,w.stock-l.c);});
+const num=(id,d)=>{const v=parseFloat(val(id));return isFinite(v)?v:d;};
+const int0=(id,d)=>Math.max(0,Math.round(num(id,d)));
+// Keep a note's two languages unless the text was actually changed.
+const noteOf=(id,old)=>{const v=val(id);if(old&&v===L(old))return old;return{en:v,fr:v};};
+
+function saveForm(){
+  const m=ui.modal,k=m.kind,ed=!!m.id;let col,p,prefix;
+  if(k==='acc'){
+    if(!val('fa-name')){toast(t('req'));return;}
+    const old=ed?A(m.id):null;col='accounts';prefix='a';
+    p={name:val('fa-name'),type:val('fa-type'),city:val('fa-city'),area:val('fa-area'),contact:val('fa-contact'),email:val('fa-email'),pno:val('fa-pno'),pexp:val('fa-pexp')?parseISO(val('fa-pexp')):null,terms:val('fa-terms'),note:noteOf('fa-note',old&&old.note)};
+    if(!ed)p.since=base.getFullYear();
+  }else if(k==='sup'){
+    if(!val('fs-name')){toast(t('req'));return;}
+    const old=ed?S(m.id):null;col='suppliers';prefix='s';
+    p={name:val('fs-name'),country:val('fs-country'),region:val('fs-region'),contact:val('fs-contact'),email:val('fs-email'),lead:int0('fs-lead',6),terms:val('fs-terms'),note:noteOf('fs-note',old&&old.note)};
+  }else if(k==='wine'){
+    if(!val('fw-name')||!val('fw-sup')){toast(t('req'));return;}
+    col='wines';prefix='w';
+    p={name:val('fw-name'),sup:val('fw-sup'),vint:int0('fw-vint',0),color:val('fw-color'),cs:Math.max(1,int0('fw-cs',6)),cost:Math.max(0,num('fw-cost',0)),price:Math.max(0,num('fw-price',0)),stock:int0('fw-stock',0),transit:int0('fw-transit',0)};
+  }else{
+    if(!val('fh-sup')){toast(t('req'));return;}
+    col='shipments';prefix='h';
+    p={sup:val('fh-sup'),ref:val('fh-ref'),cases:int0('fh-cases',0),status:val('fh-status'),eta:val('fh-eta')?parseISO(val('fh-eta')):null};
+  }
+  const arr={accounts,suppliers,wines,shipments}[col];
+  if(ed){Object.assign(arr.find(x=>x.id===m.id),p);save(()=>api.update(col,m.id,p));}
+  else{p={id:newId(prefix),...p};arr.push(p);save(()=>api.insert(col,p));}
+  ui.modal=m.back||null;
+  if(!ed&&(k==='acc'||k==='sup')){ui.view=k==='acc'?'cli':'sup';ui.drawer={t:k,id:p.id};}
+  renderAll();toast(t(ed?'t_saved':{acc:'t_acc',sup:'t_sup',wine:'t_saved',ship:'t_saved'}[k]));
+}
+
+function doDelete(){
+  const m=ui.modal,k=m.kind,id=m.id;
+  if(delInfo(k,id).block)return;
+  const col={sup:'suppliers',wine:'wines',ship:'shipments',acc:'accounts',ord:'orders'}[k];
+  if(k==='ord'){const o=O(id);if(o.status==='confirmed')o.lines.forEach(l=>{const w=W(l.w);if(w)w.stock+=l.c;});orders=orders.filter(x=>x.id!==id);}
+  else if(k==='sup')suppliers=suppliers.filter(x=>x.id!==id);
+  else if(k==='wine')wines=wines.filter(x=>x.id!==id);
+  else if(k==='ship')shipments=shipments.filter(x=>x.id!==id);
+  else accounts=accounts.filter(x=>x.id!==id);
+  ui.modal=null;
+  if(ui.drawer&&ui.drawer.t===k&&ui.drawer.id===id)ui.drawer=null;
+  renderAll();toast(t('t_deleted'));
+  save(()=>api.remove(col,id));
+}
 
 function renderAll(){document.documentElement.lang=lang==='fr'?'fr-CA':'en-CA';renderSide();renderView();renderLayer();}
-const closeLayer=()=>{if(ui.modal)ui.modal=null;else ui.drawer=null;renderLayer();};
+// Closing a dialog opened from another dialog (delete from an edit form) returns to that one.
+const closeLayer=()=>{if(ui.modal)ui.modal=ui.modal.back||null;else ui.drawer=null;renderLayer();};
 const val=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
 
 document.addEventListener('click',e=>{
   const el=e.target.closest('[data-act]');if(!el)return;
-  const a=el.dataset.act,id=el.dataset.id;
+  const a=el.dataset.act,id=el.dataset.id,kind=el.dataset.kind;
   if(a==='close-bg'){if(e.target===el)closeLayer();return;}
   if(a==='close'){closeLayer();return;}
   if(a==='nav'){ui.view=id;ui.drawer=null;ui.modal=null;renderAll();window.scrollTo(0,0);return;}
@@ -287,22 +375,25 @@ document.addEventListener('click',e=>{
   if(a==='acc-f'){ui.accF=id;renderView();return;}
   if(a==='ord-f'){ui.ordF=id;renderView();return;}
   if(a==='open-acc'||a==='open-sup'||a==='open-ord'){ui.modal=null;ui.drawer={t:a.slice(5),id};renderLayer();const d=$('.drawer');if(d)d.scrollTop=0;return;}
-  if(a==='new-acc'){ui.modal={t:'acc'};renderLayer();return;}
-  if(a==='new-sup'){ui.modal={t:'sup'};renderLayer();return;}
+  if(a==='new-acc'){ui.modal={t:'form',kind:'acc'};renderLayer();return;}
+  if(a==='new-sup'){ui.modal={t:'form',kind:'sup'};renderLayer();return;}
+  if(a==='new'){ui.modal={t:'form',kind,sup:el.dataset.sup};renderLayer();return;}
+  if(a==='edit'){
+    if(kind==='ord'){const o=O(id);ui.modal={t:'order',id:o.id,status:o.status,acc:o.acc,deliver:iso(o.deliver),lines:o.lines.map(l=>({...l}))};}
+    else ui.modal={t:'form',kind,id};
+    renderLayer();return;}
+  if(a==='ask-del'){ui.modal={t:'del',kind,id,back:ui.modal&&ui.modal.t==='form'?ui.modal:null};renderLayer();return;}
+  if(a==='do-del'){doDelete();return;}
+  if(a==='save-form'){saveForm();return;}
   if(a==='new-ord'){ui.modal={t:'order',acc:id||'',deliver:iso(off(3)),lines:[{w:'',c:1}]};renderLayer();return;}
   if(a==='add-line'){ui.modal.lines.push({w:'',c:1});renderLayer();return;}
   if(a==='rm-line'){const m=ui.modal;m.lines.splice(+el.dataset.i,1);if(!m.lines.length)m.lines.push({w:'',c:1});renderLayer();return;}
-  if(a==='save-acc'){
-    if(!val('fa-name')){toast(t('req'));return;}
-    const pexp=val('fa-pexp')?parseISO(val('fa-pexp')):null;
-    const n={id:'a'+Date.now().toString(36),name:val('fa-name'),type:val('fa-type'),city:val('fa-city'),area:val('fa-area'),contact:val('fa-contact'),email:val('fa-email'),pno:val('fa-pno'),pexp,terms:val('fa-terms'),since:base.getFullYear(),note:{en:'',fr:''}};
-    accounts.push(n);ui.modal=null;ui.view='cli';ui.drawer={t:'acc',id:n.id};renderAll();toast(t('t_acc'));save(()=>api.insert('accounts',n),()=>{accounts=accounts.filter(x=>x!==n);ui.drawer=null;renderAll();});return;}
-  if(a==='save-sup'){
-    if(!val('fs-name')){toast(t('req'));return;}
-    const n={id:'s'+Date.now().toString(36),name:val('fs-name'),country:val('fs-country'),region:val('fs-region'),contact:val('fs-contact'),email:val('fs-email'),terms:val('fs-terms'),lead:+val('fs-lead')||6,note:{en:'',fr:''}};
-    suppliers.push(n);ui.modal=null;ui.view='sup';ui.drawer={t:'sup',id:n.id};renderAll();toast(t('t_sup'));save(()=>api.insert('suppliers',n),()=>{suppliers=suppliers.filter(x=>x!==n);ui.drawer=null;renderAll();});return;}
   if(a==='save-order'){
     const m=ui.modal,lines=validLines(m);if(!m.acc||!lines.length)return;
+    if(id==='edit'){
+      const o=O(m.id),locked=o.status!=='draft';
+      const p=locked?{deliver:m.deliver?parseISO(m.deliver):o.deliver}:{acc:m.acc,deliver:m.deliver?parseISO(m.deliver):o.deliver,lines:lines.map(l=>({w:l.w,c:l.c}))};
+      Object.assign(o,p);ui.modal=null;renderAll();toast(t('t_saved'));save(()=>api.update('orders',o.id,p));return;}
     const o={id:nextId(),acc:m.acc,date:new Date(base),deliver:m.deliver?parseISO(m.deliver):off(3),status:id,lines:lines.map(l=>({w:l.w,c:l.c}))};
     orders.push(o);if(id==='confirmed')confirmStock(o);
     ui.modal=null;ui.view='ord';ui.drawer={t:'ord',id:o.id};renderAll();toast(t('t_ord',{id:o.id}));save(async()=>{await api.insert('orders',{...o,status:'draft'});if(id==='confirmed')await api.setStatus(o,'confirmed');},()=>{orders=orders.filter(x=>x!==o);ui.drawer=null;renderAll();});return;}
@@ -332,12 +423,17 @@ const CFG=window.ARRIVAGE_CONFIG||{};
 let sb=null,mode='demo';
 const TABLES=['suppliers','wines','shipments','accounts','orders','meta'];
 const dstr=d=>d?iso(d):null;
+// Convert dates for the database, only for fields present (updates send partial records).
 const toRow=(col,o)=>{const d={...o};
-  if(col==='accounts')d.pexp=dstr(o.pexp);
-  if(col==='orders'){d.date=dstr(o.date);d.deliver=dstr(o.deliver);}
+  if(col==='accounts'&&'pexp' in o)d.pexp=dstr(o.pexp);
+  if(col==='shipments'&&'eta' in o)d.eta=dstr(o.eta);
+  if(col==='orders'){if('date' in o)d.date=dstr(o.date);if('deliver' in o)d.deliver=dstr(o.deliver);}
   return d;};
 const api={
   async insert(col,o){if(mode!=='sb')return;const {error}=await sb.from(col).insert(toRow(col,o));if(error)throw error;},
+  async update(col,id,p){if(mode!=='sb')return;const {error}=await sb.from(col).update(toRow(col,p)).eq('id',id);if(error)throw error;},
+  // Orders are deleted in the database so a confirmed order's stock is put back in the same step.
+  async remove(col,id){if(mode!=='sb')return;const {error}=col==='orders'?await sb.rpc('delete_order',{order_id:id}):await sb.from(col).delete().eq('id',id);if(error)throw error;},
   async setStatus(o,s){if(mode!=='sb')return;
     // Confirmation runs in the database so the permit check and the stock deduction happen together.
     const {error}=s==='confirmed'?await sb.rpc('confirm_order',{order_id:o.id}):await sb.from('orders').update({status:s}).eq('id',o.id);

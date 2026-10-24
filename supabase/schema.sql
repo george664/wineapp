@@ -93,6 +93,29 @@ begin
 end;
 $$;
 
+-- Delete an order. A confirmed order's cases go back into stock; a delivered or paid
+-- order's stock is left as is, because the wine has already left the warehouse.
+create or replace function public.delete_order(order_id text)
+returns void
+language plpgsql
+security invoker
+set search_path = public
+as $$
+declare
+  o public.orders;
+  l jsonb;
+begin
+  select * into o from public.orders where id = order_id for update;
+  if not found then return; end if;
+  if o.status = 'confirmed' then
+    for l in select * from jsonb_array_elements(o.lines) loop
+      update public.wines set stock = stock + (l->>'c')::int where id = l->>'w';
+    end loop;
+  end if;
+  delete from public.orders where id = order_id;
+end;
+$$;
+
 -- Row-level security: only signed-in users of this project can read or write.
 -- Turn off public sign-ups (Authentication → Sign In / Providers) and invite your staff instead.
 do $$
@@ -108,6 +131,8 @@ end $$;
 
 revoke execute on function public.confirm_order(text) from public, anon;
 grant execute on function public.confirm_order(text) to authenticated;
+revoke execute on function public.delete_order(text) from public, anon;
+grant execute on function public.delete_order(text) to authenticated;
 
 -- Live updates between users.
 alter publication supabase_realtime add table
